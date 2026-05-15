@@ -12,7 +12,24 @@ function getUserId(): string {
 
 const COLORS = ['#d4a847','#3ab8a0','#9b7ee8','#e05a5a','#5ab87a','#f0c96a']
 
-const TR = {
+type TREntry = {
+  modes: Record<string, string>
+  who: string[]
+  whoV: string[]
+  nb:string; tabH:string; tabP:string; ph:string; ctxPh:string; upL:string; hint:string; whoL:string
+  rel:string; interps:string; tone:string; emo:string; int:string; inds:string; adv:string
+  reps:string; cpH:string; cont:string; gottT:string; rfLbl:string; shr:string
+  interest:string; stress:string; sincerity:string; openness:string
+  rT: Record<string, string>
+  rfL:{label:string;c:string;bg:string}; rfM:{label:string;c:string;bg:string}; rfH:{label:string;c:string;bg:string}
+  hempty:string; pplEmpty:string; padd:string; noTrend:string; fiab:string
+  pTrend:(n:number,avg:number)=>string
+  err:string; emptyT:string; emptySub:string
+  exs:{t:string;m:string;l:string}[]
+  smT:string; creditsLeft:(n:number)=>string; noCredits:string
+  sys:string; fsys:string
+}
+const TR: Record<Lang, TREntry> = {
   fr: {
     modes: { professionnel:'Professionnel', relationnel:'Relationnel', flirt:'Flirt', conflit:'Conflit', rupture:'Rupture', famille:'Famille' },
     who: ['Collègue','Partenaire','Ami(e)','Inconnu(e)','Famille','Supérieur'],
@@ -72,7 +89,7 @@ const TR = {
 } as const
 
 type TRKey = typeof TR
-function useT(lang: Lang) { return TR[lang] }
+function useT(lang: Lang): TREntry { return TR[lang] }
 
 export default function InterpretAidApp() {
   const searchParams = useSearchParams()
@@ -526,7 +543,7 @@ function Avt() {
 }
 
 function ResultCard({ result, t, lang, activePerson, people, onShare, onFollowup, rfLevel }: {
-  result: AnalysisResult; t: typeof TR['fr']; lang: Lang
+  result: AnalysisResult; t: TREntry; lang: Lang
   activePerson: Person|null; people: Person[]
   onShare: ()=>void; onFollowup: (q:string)=>void
   rfLevel: (rf:number)=>{ label:string; c:string; bg:string }
