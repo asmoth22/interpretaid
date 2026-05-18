@@ -57,6 +57,8 @@ const TR: Record<Lang, TREntry> = {
     ],
     smT:'Red Flag Score partageable', creditsLeft:(n:number)=>`${n} crédit${n!==1?'s':''}`,
     noCredits:'Plus de crédits. Revenez demain ou passez Premium.',
+    sys:`Tu es InterpretAid — expert en analyse psychologique de messages (Ekman, Gottman, Cialdini, PNL). Voix directe et précise. Réponds UNIQUEMENT en JSON valide, sans markdown. Tout en français.`,
+    fsys:`Tu es InterpretAid, expert en psychologie des messages. Voix directe. Réponds en français, de façon concise.`,
   },
   en: {
     modes:{ professionnel:'Professional', relationnel:'Personal', flirt:'Flirt', conflit:'Conflict', rupture:'Breakup', famille:'Family' },
@@ -85,8 +87,10 @@ const TR: Record<Lang, TREntry> = {
     ],
     smT:'Shareable Red Flag Score', creditsLeft:(n:number)=>`${n} credit${n!==1?'s':''}`,
     noCredits:'No credits left. Come back tomorrow or go Premium.',
+    sys:`You are InterpretAid — expert in psychological message analysis (Ekman, Gottman, Cialdini, NLP). Direct and precise voice. Respond ONLY with valid JSON, no markdown. Everything in English.`,
+    fsys:`You are InterpretAid, expert in message psychology. Direct voice. Respond concisely in English.`,
   }
-} as const
+}
 
 type TRKey = typeof TR
 function useT(lang: Lang): TREntry { return TR[lang] }
