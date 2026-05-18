@@ -681,9 +681,9 @@ function ResultCard({ result, t, lang, activePerson, people, onShare, onFollowup
                 <div key={k} style={{ display:'flex', alignItems:'center', marginBottom:5 }}>
                   <span style={{ fontSize:10.5, color:'var(--t2)', minWidth:80 }}>{lbl}</span>
                   <div style={{ flex:1, height:2, background:'rgba(255,255,255,0.04)', borderRadius:1, margin:'0 8px', overflow:'hidden' }}>
-                    <div style={{ height:'100%', borderRadius:1, background:c, width:`${Math.round((ind as Record<string,number>)[k]||0)}%`, transition:'width .7s ease' }}/>
+                    <div style={{ height:'100%', borderRadius:1, background:c, width:`${Math.round((ind as unknown as Record<string,number>)[k]||0)}%`, transition:'width .7s ease' }}/>
                   </div>
-                  <span style={{ fontSize:10.5, fontWeight:500, color:c, minWidth:26, textAlign:'right' }}>{Math.round((ind as Record<string,number>)[k]||0)}%</span>
+                  <span style={{ fontSize:10.5, fontWeight:500, color:c, minWidth:26, textAlign:'right' }}>{Math.round((ind as unknown as Record<string,number>)[k]||0)}%</span>
                 </div>
               ))}
             </div>
