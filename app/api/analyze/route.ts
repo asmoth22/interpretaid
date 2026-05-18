@@ -67,16 +67,19 @@ export async function POST(req: NextRequest) {
     await decrementCredit(userId)
     const remainingCredits = credits - 1
 
-    await supabaseAdmin.from('analyses').insert({
-      user_id: userId,
-      mode,
-      lang,
-      input_text: (text || '[Screenshot]').slice(0, 500),
-      result,
-      red_flag_score: Math.round(result.red_flag_score || 0),
-      confidence_score: Math.round(result.confidence_score || 0),
-      person_name: personName || null,
-    }).then(() => {})
+    // Sauvegarde optionnelle si Supabase configuré
+    if (supabaseAdmin) {
+      await supabaseAdmin.from('analyses').insert({
+        user_id: userId,
+        mode,
+        lang,
+        input_text: (text || '[Screenshot]').slice(0, 500),
+        result,
+        red_flag_score: Math.round(result.red_flag_score || 0),
+        confidence_score: Math.round(result.confidence_score || 0),
+        person_name: personName || null,
+      }).then(() => {})
+    }
 
     return NextResponse.json({ result, credits: remainingCredits })
   } catch (err) {
